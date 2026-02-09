@@ -40,8 +40,11 @@ public  class CommandsManager {
                 customCommandGroupList.add(customCommandGroup);
             }
         }
+
+        boolean blockColonCommands = config.getBoolean("block_colon_commands");
+
         configStructure = new ConfigStructure(commands,blockedCommandDefaultActions,tabCommands,useCommandsAsWhitelist
-                ,customCommandGroupList);
+                ,customCommandGroupList,blockColonCommands);
     }
 
     public List<String> getBlockCommandDefaultActions(){
@@ -112,8 +115,12 @@ public  class CommandsManager {
     }
 
     public UseCommandResult useCommand(String command){
-
         String[] commandWithArgs = command.toLowerCase().split(" ");
+
+        if(commandWithArgs[0].contains(":") && configStructure.isBlockColonCommands()){
+            return new UseCommandResult(false,commandWithArgs[0]);
+        }
+
         for(String blockedCommand : configStructure.getCommands()){
             String[] blockedCommandWithArgs = blockedCommand.toLowerCase().split(" ");
             int equalArguments = 0;

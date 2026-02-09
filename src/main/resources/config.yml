@@ -67,6 +67,9 @@ commands:
   - "/about"
   - "/icanhasbukkit"
 
+# Block all commands that contain ":".
+block_colon_commands: false
+
 # Here you can define group of commands that will execute certain actions.
 # The example1 section defines that commands like /ver or /version will kick
 # the player from the server, instead of using the default actions. You MUST use

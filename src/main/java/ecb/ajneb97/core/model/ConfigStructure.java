@@ -8,14 +8,16 @@ public class ConfigStructure {
     private List<TabCommandList> tabCommandList;
     private List<CustomCommandGroup> customCommands;
     private boolean useCommandsAsWhitelist;
+    private boolean blockColonCommands;
 
     public ConfigStructure(List<String> commands, List<String> blockedCommandActions, List<TabCommandList> tabCommandList
-                           ,boolean useCommandsAsWhitelist,List<CustomCommandGroup> customCommands) {
+                           ,boolean useCommandsAsWhitelist,List<CustomCommandGroup> customCommands,boolean blockColonCommands) {
         this.commands = commands;
         this.blockedCommandActions = blockedCommandActions;
         this.tabCommandList = tabCommandList;
         this.useCommandsAsWhitelist = useCommandsAsWhitelist;
         this.customCommands = customCommands;
+        this.blockColonCommands = blockColonCommands;
     }
 
     public List<String> getCommands() {
@@ -57,5 +59,13 @@ public class ConfigStructure {
 
     public void setCustomCommands(List<CustomCommandGroup> customCommands) {
         this.customCommands = customCommands;
+    }
+
+    public boolean isBlockColonCommands() {
+        return blockColonCommands;
+    }
+
+    public void setBlockColonCommands(boolean blockColonCommands) {
+        this.blockColonCommands = blockColonCommands;
     }
 }

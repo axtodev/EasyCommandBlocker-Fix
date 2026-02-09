@@ -64,6 +64,12 @@ public class ConfigManager {
         Path configFile = Paths.get(dataDirectoryPath+File.separator+newFileName);
         try {
             String configText = new String(Files.readAllBytes(configFile));
+            if(!configText.contains("block_colon_commands:")){
+                yamlFile.set("block_colon_commands", false);
+                yamlFile.save();
+                yamlFile.load();
+            }
+
             if(!isProxy){
                 if(!configText.contains("legacy_support:")){
                     yamlFile.set("legacy_support", false);

@@ -11,6 +11,7 @@ commands:
   - "/bungee"
   - "/server"
   - "/lpb"
+block_colon_commands: false
 custom_commands_actions:
   example1:
     commands:
