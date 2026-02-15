@@ -1,0 +1,11 @@
+main: ecb.ajneb97.spigot.EasyCommandBlocker
+version: 1.16.2
+name: EasyCommandBlocker
+api-version: 1.13
+softdepend: [ViaVersion,ProtocolLib]
+author: Ajneb97
+
+commands:
+  easycommandblocker:
+    description: Main command of EasyCommandBlocker
+    aliases: [ecb]

@@ -9,6 +9,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandSendEvent;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PlayerListenerNew implements Listener {
@@ -25,19 +26,19 @@ public class PlayerListenerNew implements Listener {
             return;
         }
         CommandsManager commandsManager = plugin.getCommandsManager();
-        List<String> commands = commandsManager.getTabCommands(OtherUtils.getPlayerPermissionsList(player));
+        List<String> allowedCommands = commandsManager.getTabCommands(OtherUtils.getPlayerPermissionsList(player));
 
-        event.getCommands().clear();
-
-        if(commands == null){
+        if(allowedCommands == null){
+            event.getCommands().clear();
             return;
         }
-        for(String command : commands){
-            command = command.replaceFirst("/","");
-            command = command.split(" ")[0];
-            if(!event.getCommands().contains(command)){
-                event.getCommands().add(command);
-            }
+
+        List<String> allowedBaseCommands = new ArrayList<>();
+        for(String cmd : allowedCommands){
+            String base = cmd.replaceFirst("/", "").split(" ")[0];
+            allowedBaseCommands.add(base);
         }
+
+        event.getCommands().removeIf(command -> !allowedBaseCommands.contains(command));
     }
 }

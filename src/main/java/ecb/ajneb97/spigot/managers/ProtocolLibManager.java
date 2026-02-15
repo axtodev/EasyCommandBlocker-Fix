@@ -112,17 +112,26 @@ public class ProtocolLibManager {
                     return;
                 }
 
-                boolean isArgument = false;
-                if(waitCommand.contains(" ")){
-                    waitCommand = waitCommand.split(" ")[0];
-                    isArgument = true;
+                String commandBase = waitCommand.split(" ")[0];
+                boolean isArgument = waitCommand.contains(" ");
+
+                // Check if current command is allowed
+                boolean isAllowed = true;
+                if(commandsManager.useCommand(commandBase).isCanUseCommand() == false){
+                    isAllowed = false;
+                }
+
+                if(isAllowed && isArgument){
+                    // If the command is allowed and we are in arguments, 
+                    // we should NOT cancel or filter server suggestions (like players)
+                    return;
                 }
 
                 for(String command : commands){
                     command = command.split(" ")[0];
                     if(!newSuggestions.contains(command) && command.startsWith(waitCommand)){
                         if(isArgument){
-                            return;
+                            continue;
                         }
                         newSuggestions.add(command);
                     }
